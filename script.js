@@ -1,11 +1,11 @@
 // нахожу элементы, записываю в переменные
 let elemOldСar = document.forms.car.elements.oldСar;  //элемент формы подержанного автомобиля
 let button = document.querySelector(".button"); // переменная для кнопки
-let carOwner = document.querySelector(".carOwner"); // нашла див с количеством владельцев
+let carOwner = document.querySelector(".carOwner"); // это див с количеством владельцев
 
 
 function onChangeFirst() {  // эта функция подгружает массив выбора моделей для разных марок
-  const nameValue = document.getElementById('carName').value;
+  const nameValue = document.getElementById('carName').value; //какую машина=у выбрали в выпадающем списке
   
   const reno = [{ model:'re', price: 100000 } , {model: 'ree', price: 150000 },{model:'reee', price: 200000 }];
   const opel = [{model:'op', price: 150000 }, {model:'opp', price: 170000 },{model:'oppp', price: 220000 }];
@@ -28,7 +28,7 @@ function onChangeFirst() {  // эта функция подгружает мас
       values = [...jaguar]
     }
 
-  let select = document.getElementById('carModel'); // завожу переменную для выпадающего списка моделей
+  const select = document.getElementById('carModel'); // завожу переменную для выпадающего списка моделей
 
   for (const val of values)
   {
@@ -38,13 +38,12 @@ function onChangeFirst() {  // эта функция подгружает мас
       select.appendChild(option); // добавляю список моделей
   }};
 
-
 function addcarOwner(){ // если авто подержанное, то появляются родиокнопки с количеством владельцев
 
-if(elemOldСar.value !=="") 
+if(elemOldСar.checked = true) 
 {
-  const oneCarOwner = `<div><p>1-2 владельца</p><input type="radio" name="owner" value="500"></div>`;
-  const threeCarOwner = `<div><p>3 и более владельцев</p><input type="radio" name="owner" value="100"></div>`;
+  let oneCarOwner = `<div><p>1-2 владельца</p><input type="radio" name="owner" value="500" checked></div>`;
+  let threeCarOwner = `<div><p>3 и более владельцев</p><input type="radio" name="owner" value="100"></div>`;
   carOwner.insertAdjacentHTML('beforeEnd', oneCarOwner);
   carOwner.insertAdjacentHTML('beforeEnd', threeCarOwner);
 }}
@@ -56,56 +55,41 @@ elemOldСar.addEventListener('input', function (evt) {
 button.addEventListener("click", function(event) { //основная функция для расчета
   event.preventDefault();
 
-   let model =document.querySelector("#carModel").value;
-   let newCar =document.querySelector("#newCar");
-   let oldСar =document.querySelector("#oldСar");
+let model =document.querySelector("#carModel").value;
+let newCar =document.querySelector("#newCar");
+let oldСar =document.querySelector("#oldСar");
+let newCarVal = newCar.value;
+let oldСarVal = oldСar.value;
 
-   let newCarVal = newCar.value;
-   let oldСarVal = oldСar.value;
+let result =0; // переменная для расчета стоимости авто
+result =  result + +model; // стоимость в зависимости от модели.
 
-   let result =0; // переменная для расчета стоимости авто
-
-   result =  result + +model; // стоимость, если выбрана только модель.
-    console.log(result);
-    
-      
-    const fuels = document.querySelectorAll('input[name="fuel"]'); // смотрим какое топливо выбрано
-        let fuelCheck;
-        for (const fuel of fuels) {
-            if (fuel.checked) {
-              fuelCheck = fuel.value;
-                break;
-            }
-        }
-        result = result + +fuelCheck; // стоимость с учетом выбора топлива
-        console.log(result);
+const fuels = document.querySelectorAll('input[name="fuel"]'); // смотрим какое топливо выбрано
+  let fuelCheck;
+    for (const fuel of fuels) {
+      if (fuel.checked) {
+        fuelCheck = fuel.value;
+          break;
+      }
+    }; 
+result = result + +fuelCheck; // стоимость с учетом выбора топлива
 
 const capacity = document.forms.capa.elements.capacity; // записываю инпут объема двигателя в переменную
 result = result + +capacity.value; // Зависимость цены от объема двигателя. я не знаю какая реальная математическая зависимость))
-console.log(result);
 
+if (newCar.checked) {  // стоимость с наценкой на новый авто.
+result = result + +newCarVal;
+}
+else if (oldСar.checked) {// стоимость с наценкой на подержаный авто.
+result = result + +oldСarVal;
+};
 
-    if (newCar.checked) {  // стоимость с наценкой на новый авто.
-      result = result + +newCarVal;
-      console.log(result);
-    }
-    
-    else if (oldСar.checked) {// стоимость с наценкой на подержаный авто.
-
-      result = result + +oldСarVal;
-      console.log(result);
-    };
-
-    const cash = document.querySelector('#cash'); // скидка за оплату наличкой
-    if (cash.checked) {
-      result = result - +result*0.1;
-    };
-    console.log(result);
+const cash = document.querySelector('#cash'); // скидка за оплату наличкой
+if (cash.checked) {
+result = result - +result*0.1;
+};
 
 let resultSum = document.querySelector('.result'); // вывод результата 
-resultSum.insertAdjacentText('beforeend', result); // итоговая стоимость
-
-
+resultSum.textContent = ' '; // обнуляю результат расчета при каждом клике по кнопке
+resultSum.insertAdjacentHTML('beforeend', result); // итоговая стоимость
 });
-
-  // form.reset(); // сбрасываем все поля после обработки формы

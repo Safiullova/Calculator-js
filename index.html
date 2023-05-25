@@ -17,6 +17,7 @@
             <div>
                 <label for="carName">Марка автомобиля</label>
                 <select name="carName" id="carName" onchange=onChangeFirst()>
+                    <option value="0">Выбирай машину</option>
                     <option name="reno" value="1"> Reno</option>
                     <option name="opel" value="2">Opel</option>
                     <option name="mazda" value="3">Mazda</option>
@@ -27,17 +28,18 @@
 
             <label for="carModel">Модель автомобиля</label>
             <select id="carModel" name="carModel">
+                <option value="0">Выбирай Модель</option>
             </select>
         </form>
 
         <form name="fuel">
             <p>Тип топлива:</p>
             <label for="petrol">Бензин</label>
-            <input type="radio" name="fuel" id="petrol" value="1000"><br>
-
+            <input type="radio" name="fuel" id="petrol" value="1000" checked>
+            <br>
             <label for="diesel">Дизель</label>
-            <input type="radio" name="fuel" id="diesel" value="2000"><br>
-
+            <input type="radio" name="fuel" id="diesel" value="2000">
+            <br>
             <label for="gas">Газ</label>
             <input type="radio" name="fuel" id="gas" value="3000">
             <br>
@@ -53,7 +55,7 @@
         <form name="car">
             <p>Состояние автомобиля</p>
             <label for="newCar">Новый</label>
-            <input type="radio" name="сar" id="newCar" value="50000">
+            <input type="radio" name="сar" id="newCar" value="50000" checked>
             <br>
             <label for="oldСar">С пробегом</label>
             <input type="radio" name="сar" id="oldСar" value="10000">
@@ -65,7 +67,7 @@
         <form name="pay">
             <p>Желаемый способ оплаты</p>
             <label for="card">Карта</label>
-            <input type="radio" name="pay" id="card">
+            <input type="radio" name="pay" id="card" checked>
             <br>
             <label for="cash">Наличные</label>
             <input type="radio" name="pay" id="cash">
