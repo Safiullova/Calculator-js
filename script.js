@@ -39,18 +39,17 @@ function onChangeFirst() {  // эта функция подгружает мас
   }};
 
 function addcarOwner(){ // если авто подержанное, то появляются родиокнопки с количеством владельцев
-
 if(elemOldСar.checked = true) 
 {
-  let oneCarOwner = `<div><p>1-2 владельца</p><input type="radio" name="owner" value="500" checked></div>`;
-  let threeCarOwner = `<div><p>3 и более владельцев</p><input type="radio" name="owner" value="100"></div>`;
+  let oneCarOwner = `<div><p>1-2 владельца</p><input type="radio" name="owner" value="500" id="first" checked></div>`;
+  let threeCarOwner = `<div><p>3 и более владельцев</p><input type="radio" name="owner" value="100" id="three"></div>`;
   carOwner.insertAdjacentHTML('beforeEnd', oneCarOwner);
   carOwner.insertAdjacentHTML('beforeEnd', threeCarOwner);
 }}
 elemOldСar.addEventListener('input', function (evt) {
   evt.preventDefault();
   addcarOwner();
-});
+},{ once: true }); // чтобы импуты добавлялись в разметку только один раз по клику на чекбокс "с пробегом" 
 
 button.addEventListener("click", function(event) { //основная функция для расчета
   event.preventDefault();
@@ -59,7 +58,7 @@ let model =document.querySelector("#carModel").value;
 let newCar =document.querySelector("#newCar");
 let oldСar =document.querySelector("#oldСar");
 let newCarVal = newCar.value;
-let oldСarVal = oldСar.value;
+// let oldСarVal = oldСar.value;
 
 let result =0; // переменная для расчета стоимости авто
 result =  result + +model; // стоимость в зависимости от модели.
@@ -81,7 +80,12 @@ if (newCar.checked) {  // стоимость с наценкой на новый
 result = result + +newCarVal;
 }
 else if (oldСar.checked) {// стоимость с наценкой на подержаный авто.
-result = result + +oldСarVal;
+  let oldCarFirst = document.querySelector('#first');
+  let oldCarThree = document.querySelector('#three');
+  if (oldCarFirst.checked){
+    result = result + +oldCarFirst.value;
+  }
+result = result + +oldCarThree.value;
 };
 
 const cash = document.querySelector('#cash'); // скидка за оплату наличкой
